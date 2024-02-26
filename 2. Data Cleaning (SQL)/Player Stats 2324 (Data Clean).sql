@@ -2,11 +2,13 @@
 SELECT 
 	CAST([first_name] AS VARCHAR(255)) AS 'First Name',
 	CAST([last_name] AS VARCHAR(255)) AS 'Last Name',
-	CAST([Club] AS VARCHAR(255)) AS 'Team Name',
+	-- COALESCE handles when NULL the player is not in the league
+	CAST(COALESCE(REPLACE([Club], 'amp;', ''), 'No longer in league') AS VARCHAR(255)) AS 'Team Name',
 	CAST([Position] AS VARCHAR(50)) AS 'Position',
 	CAST(SUBSTRING([Height], 1, CHARINDEX('cm', [Height]) - 1) AS INT) AS 'Height',
 	CAST([Nationality] AS VARCHAR(100)) AS 'Nationality',
 	CAST([Flag] AS VARCHAR(MAX)) AS 'Flag URL',
+	-- CASE e.g. to remove age '(20)' from string '26/02/2024 (20)'
 	CASE 
         WHEN CHARINDEX(' (', [Date_of_Birth]) > 0 THEN 
             -- If '(' is found
@@ -20,7 +22,7 @@ SELECT
 	CAST(REPLACE([Clean_sheets], ',', '') AS INT) AS 'Clean Sheets',
 	CAST(REPLACE([Goals_Conceded], ',', '') AS INT) AS 'Goals Conceded',
 	CAST(REPLACE([Tackles], ',', '') AS INT) AS 'Tackles',
-	CAST(REPLACE([Tackle_success], '%', '') AS DECIMAL(6, 2)) AS 'Tackle Success',
+	CAST(CAST(REPLACE([Tackle_success], '%', '') AS DECIMAL(6, 2))/100 AS DECIMAL(3, 2)) AS 'Tackle Success',
 	CAST(REPLACE([Last_man_tackles], ',', '') AS INT) AS 'Last Man Tackles',
 	CAST(REPLACE([Blocked_shots], ',', '') AS INT) AS 'Blocked Shots',
 	CAST(REPLACE([Interceptions], ',', '') AS INT) AS 'Interceptions',
@@ -40,7 +42,7 @@ SELECT
 	CAST([Passes_per_match] AS DECIMAL(5, 2)) AS 'Passes per Match',
 	CAST(REPLACE([Big_Chances_Created], ',', '') AS INT) AS 'Big Chances Created',
 	CAST(REPLACE([Crosses], ',', '') AS INT) AS 'Crosses',
-	CAST(REPLACE([Cross_accuracy], '%', '') AS DECIMAL(6, 2)) AS 'Cross Accuracy',
+	CAST(CAST(REPLACE([Cross_accuracy], '%', '') AS DECIMAL(6, 2))/100 AS DECIMAL(3,2)) AS 'Cross Accuracy',
 	CAST(REPLACE([Through_balls], ',', '') AS INT) AS 'Through Balls',
 	CAST(REPLACE([Accurate_long_balls], ',', '') AS INT) AS 'Accurate Long Balls',
 	CAST(REPLACE([Yellow_cards], ',', '') AS INT) AS 'Yellow Cards',
@@ -57,7 +59,7 @@ SELECT
 	CAST(REPLACE([Freekicks_scored], ',', '') AS INT) AS 'Freekicks Scored',
 	CAST(REPLACE([Shots], ',', '') AS INT) AS 'Shots',
 	CAST(REPLACE([Shots_on_target], ',', '') AS INT) AS 'Shots on Target',
-	CAST(REPLACE([Shooting_accuracy], '%', '') AS DECIMAL(6, 2)) AS 'Shooting Accuracy',
+	CAST(CAST(REPLACE([Shooting_accuracy], '%', '') AS DECIMAL(6, 2))/100 AS DECIMAL(3,2)) AS 'Shooting Accuracy',
 	CAST(REPLACE([Big_chances_missed], ',', '') AS INT) AS 'Big Chances Missed',
 	CAST(REPLACE([Saves], ',', '') AS INT) AS 'Saves',
 	CAST(REPLACE([Penalties_Saved], ',', '') AS INT) AS 'Penalties Saved',
