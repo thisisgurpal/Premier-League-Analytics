@@ -7,7 +7,14 @@ SELECT
 	CAST(SUBSTRING([Height], 1, CHARINDEX('cm', [Height]) - 1) AS INT) AS 'Height',
 	CAST([Nationality] AS VARCHAR(100)) AS 'Nationality',
 	CAST([Flag] AS VARCHAR(MAX)) AS 'Flag URL',
-	[Date_of_Birth] as 'Date of Birth',
+	CASE 
+        WHEN CHARINDEX(' (', [Date_of_Birth]) > 0 THEN 
+            -- If '(' is found
+            CONVERT(DATE, SUBSTRING([Date_of_Birth], 1, CHARINDEX(' (', [Date_of_Birth]) - 1), 103)
+        ELSE 
+            -- If '(' is not found
+			CONVERT(DATE, [Date_of_Birth], 103)
+	END AS 'Date of Birth',
 	CAST(REPLACE([Appearances], ',', '') AS INT) AS 'Appearances',
 	CAST([image_url] AS VARCHAR(MAX)) AS 'Player Image URL',
 	CAST(REPLACE([Clean_sheets], ',', '') AS INT) AS 'Clean Sheets',
