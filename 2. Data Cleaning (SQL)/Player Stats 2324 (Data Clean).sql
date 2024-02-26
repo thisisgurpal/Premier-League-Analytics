@@ -5,6 +5,7 @@ SELECT
 	-- COALESCE handles when NULL the player is not in the league
 	CAST(COALESCE(REPLACE([Club], 'amp;', ''), 'No longer in league') AS VARCHAR(255)) AS 'Team Name',
 	CAST([Position] AS VARCHAR(50)) AS 'Position',
+	-- Remove 'cm' from Height
 	CAST(SUBSTRING([Height], 1, CHARINDEX('cm', [Height]) - 1) AS INT) AS 'Height',
 	CAST([Nationality] AS VARCHAR(100)) AS 'Nationality',
 	CAST([Flag] AS VARCHAR(MAX)) AS 'Flag URL',
@@ -69,5 +70,6 @@ SELECT
 	CAST(REPLACE([Sweeper_clearances], ',', '') AS INT) AS 'Sweeper Clearances',
 	CAST(REPLACE([Throw_outs], ',', '') AS INT) AS 'Throw Outs',
 	CAST(REPLACE([Goal_Kicks], ',', '') AS INT) AS 'Goal Kicks'
+INTO [Premier League Scrape].[dbo].[player_stats_2324_clean]
 FROM [Premier League Scrape].[dbo].[player_stats_2324_raw]
   
