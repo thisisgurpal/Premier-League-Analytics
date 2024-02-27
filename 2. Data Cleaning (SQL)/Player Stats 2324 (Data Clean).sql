@@ -1,9 +1,15 @@
 /* Add data types and clean data */
 SELECT 
+	PS.*, 
+	TID.Id AS 'Team Id'
+INTO [Premier League Scrape].[dbo].[player_stats_2324_clean]
+FROM
+(
+SELECT 
 	CAST([first_name] AS VARCHAR(255)) AS 'First Name',
 	CAST([last_name] AS VARCHAR(255)) AS 'Last Name',
-	-- COALESCE handles when NULL the player is not in the league
-	CAST(COALESCE(REPLACE([Club], 'amp;', ''), 'No longer in league') AS VARCHAR(255)) AS 'Team Name',
+	-- COALESCE handles when NULL the player is not in the league and U19 teams
+	CAST(REPLACE(REPLACE([Club], 'amp;', ''), 'U19', '') AS VARCHAR(255)) AS 'Team Name',
 	CAST([Position] AS VARCHAR(50)) AS 'Position',
 	-- Remove 'cm' from Height
 	CAST(SUBSTRING([Height], 1, CHARINDEX('cm', [Height]) - 1) AS INT) AS 'Height',
@@ -70,6 +76,14 @@ SELECT
 	CAST(REPLACE([Sweeper_clearances], ',', '') AS INT) AS 'Sweeper Clearances',
 	CAST(REPLACE([Throw_outs], ',', '') AS INT) AS 'Throw Outs',
 	CAST(REPLACE([Goal_Kicks], ',', '') AS INT) AS 'Goal Kicks'
-INTO [Premier League Scrape].[dbo].[player_stats_2324_clean]
 FROM [Premier League Scrape].[dbo].[player_stats_2324_raw]
+) AS PS
+LEFT JOIN [Premier League Scrape].[dbo].[team_2324_id] AS TID
+ON PS.[Team Name] = TID.[Team Name]
+
+
+
+
+
+
   
