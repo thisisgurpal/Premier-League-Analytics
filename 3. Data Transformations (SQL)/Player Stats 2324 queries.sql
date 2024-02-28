@@ -1,64 +1,125 @@
 /* Player Stats Queries */
 
-/* Who currently in the Premier League Season 2023/24 does the most passes per match? */
+/* Who in the Premier League Season 2023/24 scores the most goals? */
 SELECT
-	[First Name],
-	[Last Name],
+	CASE
+		WHEN [First Name] IS NULL THEN
+			[Last Name]
+		ELSE
+			[First Name] + ' ' + [Last Name]
+	END AS [Player Name],
 	[Team Name],
+	[Position],
 	[Passes per Match]
 FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
 WHERE [Team Id] IS NOT NULL AND [Passes per Match] IS NOT NULL
 ORDER BY [Passes per Match] desc
 
-/* Who currently in the Premier League Season 2023/24 has made the most apperances? */
+/* Who in the Premier League Season 2023/24 does the most passes per match? */
 SELECT
-	[First Name],
-	[Last Name],
-	[Team Name],
+	CASE
+		WHEN [First Name] IS NULL THEN
+			[Last Name]
+		ELSE
+			[First Name] + ' ' + [Last Name]
+	END AS [Player Name],
+	CASE
+		WHEN [Team Id] IS NULL THEN
+			'No longer in league'
+		ELSE
+			[Team Name]
+	END AS [Team Name],
+	[Position],
+	[Passes per Match]
+FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
+WHERE [Passes per Match] IS NOT NULL
+ORDER BY [Passes per Match] desc
+
+/* Who in the Premier League Season 2023/24 has made the most apperances? */
+SELECT
+	CASE
+		WHEN [First Name] IS NULL THEN
+			[Last Name]
+		ELSE
+			[First Name] + ' ' + [Last Name]
+	END AS [Player Name],
+	CASE
+		WHEN [Team Id] IS NULL THEN
+			'No longer in league'
+		ELSE
+			[Team Name]
+	END AS [Team Name],
+	[Position],
 	[Appearances]
 FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
-WHERE [Team Id] IS NOT NULL
+WHERE [Appearances] IS NOT NULL
 ORDER BY [Appearances] desc
 
-/* Which team currently in the Premier League Season 2023/24 has the highest average player age? */
+/* Which team in the Premier League Season 2023/24 has the highest average player age? */
 SELECT
-	[Team Name],
+	CASE
+		WHEN [Team Id] IS NULL THEN
+			'No longer in league'
+		ELSE
+			[Team Name]
+	END AS [Team Name],
 	AVG(DATEDIFF(YEAR, [Date of Birth], GETDATE())) AS 'Average Age'
 FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
-WHERE [Team Id] IS NOT NULL
+WHERE [Date of Birth] IS NOT NULL
 GROUP BY [Team Name]
 ORDER BY [Average Age] desc
 
-/* Which player under 20 years of age currently in the Premier League Season 2023/24 has the highest appearances? */
+/* Which player under 20 years of age in the Premier League Season 2023/24 has the highest appearances? */
 SELECT * FROM
 (
     SELECT
-        [First Name],
-        [Last Name],
-        [Team Name],
+        CASE
+			WHEN [First Name] IS NULL THEN
+				[Last Name]
+			ELSE
+				[First Name] + ' ' + [Last Name]
+		END AS [Player Name],
+        CASE
+		WHEN [Team Id] IS NULL THEN
+			'No longer in league'
+		ELSE
+			[Team Name]
+	END AS [Team Name],
         CAST(DATEDIFF(YEAR, [Date of Birth], GETDATE()) AS INT) AS 'Age',
         [Appearances]
     FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
-    WHERE [Team Id] IS NOT NULL
+    WHERE [Date of Birth] IS NOT NULL
 ) AS SubQuery
 WHERE [Age] < 20
 ORDER BY [Appearances] desc;
 
 /* Which position has the tallest average height for players involved in the Premier League Season 2023/24? */
 SELECT
+	CASE
+		WHEN [Team Id] IS NULL THEN
+			'No longer in league'
+		ELSE
+			[Team Name]
+	END AS [Team Name],
 	[Position],
+	AVG([Height]) AS 'Average Height',
+	COUNT([Height]) AS 'Count'
+FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
+WHERE Height IS NOT NULL AND [Position] IS NOT NULL
+GROUP BY [Team Name], [Position]
+ORDER BY [Average Height] desc
+
+/* Which team has the tallest players in the Premier League Season 2023/24? */
+SELECT
+	CASE
+		WHEN [Team Id] IS NULL THEN
+			'No longer in league'
+		ELSE
+			[Team Name]
+	END AS [Team Name],
 	AVG([Height]) AS 'Average Height'
 FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
 WHERE Height IS NOT NULL
-GROUP BY Position
-ORDER BY [Average Height] desc
-
-/* Which team has the tallest players currently in the Premier League Season 2023/24? */
-SELECT
-	[Team Name],
-	AVG([Height]) AS 'Average Height'
-FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
-WHERE Height IS NOT NULL AND [Team Id] IS NOT NULL
 GROUP BY [Team Name]
 ORDER BY [Average Height] desc
 
@@ -141,7 +202,126 @@ SELECT
 	[Height],
 	[Tackle Success]
 FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
-WHERE [Tackle Success] IS NOT NULL AND [Height] IS NOT NULL
+WHERE [Tackle Success] IS NOT NULL 
+AND [Height] IS NOT NULL
+AND [Tackles] > 0
+
+/* Reviewing player height and cross accuracy for players involved in the Premier League Season 2023/24? */
+SELECT
+	[Height],
+	[Cross Accuracy]
+FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
+WHERE [Cross Accuracy] IS NOT NULL 
+AND [Height] IS NOT NULL
+AND [Crosses] > 0
+
+/* Reviewing player height and shooting accuracy for players involved in the Premier League Season 2023/24? */
+SELECT
+	[Height],
+	[Shooting Accuracy]
+FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
+WHERE [Shooting Accuracy] IS NOT NULL 
+AND [Height] IS NOT NULL
+AND [Shots] > 0
+
+/* Reviewing player 'Height' with 'Tackle Success', 'Shooting Accuracy' and 'Cross Accuracy' for players involved in the Premier League Season 2023/24? */
+SELECT
+	CASE
+		WHEN [First Name] IS NULL THEN
+			[Last Name]
+		ELSE
+			[First Name] + ' ' + [Last Name]
+	END AS [Player Name],
+	CASE
+		WHEN [Team Id] IS NULL THEN
+			'No longer in league'
+		ELSE
+			[Team Name]
+	END AS [Team Name],
+	[Position],
+	[Height],
+	[Tackle Success],
+	CAST([Tackles] AS VARCHAR(50)) + ' Tackles' AS 'Frequency',
+	'Tackle Success' AS [Type]
+FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
+WHERE [Tackle Success] IS NOT NULL 
+AND [Height] IS NOT NULL
+AND [Tackles] > 0
+
+UNION ALL
+
+SELECT
+	CASE
+		WHEN [First Name] IS NULL THEN
+			[Last Name]
+		ELSE
+			[First Name] + ' ' + [Last Name]
+	END AS [Player Name],
+	CASE
+		WHEN [Team Id] IS NULL THEN
+			'No longer in league'
+		ELSE
+			[Team Name]
+	END AS [Team Name],
+	[Position],
+    [Height],
+    [Shooting Accuracy],
+	CAST([Shots] AS VARCHAR(50)) + ' Shots' AS 'Frequency',
+    'Shooting Accuracy' AS [Type]
+FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
+WHERE [Shooting Accuracy] IS NOT NULL 
+    AND [Height] IS NOT NULL
+    AND [Shots] > 0
+
+UNION ALL
+
+SELECT
+	CASE
+		WHEN [First Name] IS NULL THEN
+			[Last Name]
+		ELSE
+			[First Name] + ' ' + [Last Name]
+	END AS [Player Name],
+	CASE
+		WHEN [Team Id] IS NULL THEN
+			'No longer in league'
+		ELSE
+			[Team Name]
+	END AS [Team Name],
+	[Position],
+    [Height],
+    [Cross Accuracy],
+	CAST([Crosses] AS VARCHAR(50)) + ' Crosses' AS 'Frequency',
+    'Cross Accuracy' AS [Type]
+FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
+WHERE [Cross Accuracy] IS NOT NULL 
+    AND [Height] IS NOT NULL
+    AND [Crosses] > 0;
+
+/* Get all players with team and position */
+SELECT * FROM
+(
+SELECT
+	CASE
+		WHEN [First Name] IS NULL THEN
+			[Last Name]
+		ELSE
+			[First Name] + ' ' + [Last Name]
+	END AS [Player Name],
+	CASE
+		WHEN [Team Id] IS NULL THEN
+			'No longer in league'
+		ELSE
+			[Team Name]
+	END AS [Team Name],
+	[Position]
+FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
+) AS A
+WHERE [Player Name] IS NOT NULL
+	
+
+
+
 
 
 
