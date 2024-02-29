@@ -8,12 +8,17 @@ SELECT
 		ELSE
 			[First Name] + ' ' + [Last Name]
 	END AS [Player Name],
-	[Team Name],
+	CASE
+		WHEN [Team Id] IS NULL THEN
+			'No longer in league'
+		ELSE
+			[Team Name]
+	END AS [Team Name],
 	[Position],
-	[Passes per Match]
+	[Goals]
 FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
-WHERE [Team Id] IS NOT NULL AND [Passes per Match] IS NOT NULL
-ORDER BY [Passes per Match] desc
+WHERE [Goals] IS NOT NULL
+ORDER BY [Goals] desc
 
 /* Who in the Premier League Season 2023/24 does the most passes per match? */
 SELECT
@@ -296,7 +301,7 @@ SELECT
 FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
 WHERE [Cross Accuracy] IS NOT NULL 
     AND [Height] IS NOT NULL
-    AND [Crosses] > 0;
+    AND [Crosses] > 0
 
 /* Get all players with team and position */
 SELECT * FROM
@@ -318,6 +323,90 @@ SELECT
 FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
 ) AS A
 WHERE [Player Name] IS NOT NULL
+
+/* Which position get's more Cards? */
+SELECT * FROM
+(
+SELECT
+	CASE
+		WHEN [First Name] IS NULL THEN
+			[Last Name]
+		ELSE
+			[First Name] + ' ' + [Last Name]
+	END AS [Player Name],
+	CASE
+		WHEN [Team Id] IS NULL THEN
+			'No longer in league'
+		ELSE
+			[Team Name]
+	END AS [Team Name],
+	[Position],
+	[Red Cards],
+	[Yellow Cards]
+FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
+) AS A
+WHERE [Player Name] IS NOT NULL
+
+SELECT
+	CASE
+		WHEN [First Name] IS NULL THEN
+			[Last Name]
+		ELSE
+			[First Name] + ' ' + [Last Name]
+	END AS [Player Name],
+	CASE
+		WHEN [Team Id] IS NULL THEN
+			'No longer in league'
+		ELSE
+			[Team Name]
+	END AS [Team Name],
+	[Position],
+    [Red Cards] AS 'Count',
+    'Red Card' AS [Type]
+FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
+WHERE [Red Cards] IS NOT NULL
+
+UNION ALL
+
+SELECT
+	CASE
+		WHEN [First Name] IS NULL THEN
+			[Last Name]
+		ELSE
+			[First Name] + ' ' + [Last Name]
+	END AS [Player Name],
+	CASE
+		WHEN [Team Id] IS NULL THEN
+			'No longer in league'
+		ELSE
+			[Team Name]
+	END AS [Team Name],
+	[Position],
+    [Yellow Cards] AS 'Count',
+    'Yellow Card' AS [Type]
+FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
+WHERE [Yellow Cards] IS NOT NULL
+
+/* Who in the Premier League Season 2023/24 makes the most assists? */
+SELECT
+	CASE
+		WHEN [First Name] IS NULL THEN
+			[Last Name]
+		ELSE
+			[First Name] + ' ' + [Last Name]
+	END AS [Player Name],
+	CASE
+		WHEN [Team Id] IS NULL THEN
+			'No longer in league'
+		ELSE
+			[Team Name]
+	END AS [Team Name],
+	[Position],
+	[Assists]
+FROM [Premier League Scrape].[dbo].[player_stats_2324_clean]
+WHERE [Assists] IS NOT NULL
+ORDER BY [Assists] desc
+
 	
 
 
