@@ -558,18 +558,27 @@ class PlayerStatsScraper:
 
                     time.sleep(3)
                     
-                # Try get player stats
-                try:
-                    # Get player stats
-                    self.get_player_stats(season_text, driver)
+                max_attempts = 10
+                attempt = 1
 
-                    # Print to check progress
-                    print('Completed: ', index, ' Total: ', len(player_links))
-            
-                except Exception as e:
-                    # Print error
+                while attempt <= max_attempts:
+                    # Try get player stats
+                    try:
+                        # Get player stats
+                        self.get_player_stats(season_text, driver)
+
+                        # Print to check progress
+                        print('Completed: ', index, ' Total: ', len(player_links))
+                        break
+                
+                    except Exception as e:
+                        # Print error
+                        print(f"Attempt {attempt}, An error occurred at {index} for {player_links[index]}:", str(e))
+                        attempt += 1
+                        driver.refresh()
+                else:
                     self.player_missed_hrefs.append(player_href)
-                    print(f"An error occurred at {index} for {player_links[index]}:", str(e))
+                    print("Max attempts reached without success.")
                 
             # Return player stats data
             return self.player_stats
