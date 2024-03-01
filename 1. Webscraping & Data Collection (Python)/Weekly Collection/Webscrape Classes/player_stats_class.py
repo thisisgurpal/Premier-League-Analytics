@@ -14,6 +14,7 @@ class PlayerStatsScraper:
     def __init__(self):
         self.player_stats = { 'player_stats': []}
         self.player_hrefs = []
+        self.player_missed_hrefs = []
 
     # Function to handle add blockers
     def handle_blockers(self, driver):
@@ -521,16 +522,19 @@ class PlayerStatsScraper:
 
         # print(dict_)
             
+    # Return missed hrefs
+    def return_missed_hrefs(self):
+        return self.player_missed_hrefs
 
     # Scapa team stats
-    def scrape_data(self, season_text):
+    def scrape_data(self, player_links, season_text):
         # Initialise Selenium webdriver
         driver = webdriver.Chrome() 
 
         # Try open url
         try:
             # Loop through player links
-            for index, player_href in enumerate(self.player_hrefs):
+            for index, player_href in enumerate(player_links):
                 if index == 0:
                     # self.go_to_player_link(player_href, driver)
                     driver.get(player_href)
@@ -560,11 +564,12 @@ class PlayerStatsScraper:
                     self.get_player_stats(season_text, driver)
 
                     # Print to check progress
-                    print('Completed: ', index, ' Total: ', len(self.player_hrefs))
+                    print('Completed: ', index, ' Total: ', len(player_links))
             
                 except Exception as e:
                     # Print error
-                    print(f"An error occurred at {index} for {self.player_hrefs[index]}:", str(e))
+                    self.player_missed_hrefs.append(player_href)
+                    print(f"An error occurred at {index} for {player_links[index]}:", str(e))
                 
             # Return player stats data
             return self.player_stats
@@ -605,6 +610,8 @@ class PlayerStatsScraper:
 
                 # Pass
                 pass
+
+            return self.player_hrefs
                         
         except Exception as e:
             print("An error occurred:", str(e))

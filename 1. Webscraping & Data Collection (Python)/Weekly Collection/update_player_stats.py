@@ -4,6 +4,8 @@ import shutil
 import subprocess
 import pandas as pd
 
+season = '2023/24'
+
 # Import the module
 helper_module_name = "helper_class"
 helper_module = importlib.import_module(helper_module_name)
@@ -35,19 +37,31 @@ url = 'https://www.premierleague.com/players'
 
 try:
     # Get links
-    PlayerStatsScraper.get_links(url)
-    print(f"Successfully got player {len(PlayerStatsScraper.player_hrefs)} links")
+    player_links = PlayerStatsScraper.get_links(url)
+    print(f"Successfully got {len(player_links)} player links")
 except Exception as e:
     # Print error
         print(f'Error getting player links', str(e))
 
 try:
     # Scrape player stats data
-    player_stats = PlayerStatsScraper.scrape_data('2023/24')
+    player_stats = PlayerStatsScraper.scrape_data(player_links, season)
     print("Successfully got player stats")
 except Exception as e:
     # Print error
         print(f'Error getting player stats', str(e))
+
+try:
+    # Scrape player stats data
+    missed_links = PlayerStatsScraper.return_missed_hrefs()
+
+    if len(missed_links) > 0:
+        print(f"There were {len(missed_links)} missed links")
+        player_stats = PlayerStatsScraper.scrape_data(missed_links, season)
+        print(f"Successfully got {len(missed_links)} missed stats")
+except Exception as e:
+    # Print error
+        print(f'Error getting missed player stats', str(e))
 
 # Save data to df
 player_stats_data = pd.DataFrame(player_stats['player_stats'])
