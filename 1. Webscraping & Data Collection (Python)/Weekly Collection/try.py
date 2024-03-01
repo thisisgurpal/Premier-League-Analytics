@@ -21,13 +21,13 @@ source_path = os.path.join('../raw_data/csv', 'premier_league_data.csv')
 Helper.copy_from_location1_to_location2(source_path, archive_path)
 
 # Get the absolute path of the script
-script_path = os.path.join(os.getcwd(), "Webscrape Classes", "webscrape_classes.py")
+script_path = os.path.join(os.getcwd(), "Webscrape Classes", "league_table_class.py")
 
 # Run the script using subprocess
 subprocess.run(["python", script_path])
 
 # Import the module
-module_name = "Webscrape Classes.webscrape_classes"
+module_name = "Webscrape Classes.league_table_class"
 module = importlib.import_module(module_name)
 
 LeagueTableScraper = module.LeagueTableScraper()
