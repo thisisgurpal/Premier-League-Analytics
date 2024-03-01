@@ -1,0 +1,1 @@
+print(PlayerStatsScraper.player_hrefs[60])

@@ -427,6 +427,9 @@ class PlayerStatsScraper:
         season_dropdown_div = driver.find_element(By.CSS_SELECTOR, 'div[data-dropdown-block="compSeasons"]')
         season_dropdown_current_div = season_dropdown_div.find_element(By.CSS_SELECTOR, 'div[data-dropdown-current="compSeasons"]')
         season_dropdown_current_div.click()
+
+        time.sleep(2)
+        
         dropdownListContainer = season_dropdown_div.find_element(By.CSS_SELECTOR, 'div[class="dropdownListContainer"]')
         ul = dropdownListContainer.find_element(By.CSS_SELECTOR, 'ul[data-dropdown-list="compSeasons"]')
         li_elements = ul.find_elements(By.TAG_NAME, 'li')
@@ -475,7 +478,7 @@ class PlayerStatsScraper:
             a.click()
 
             # Allow page to load
-            time.sleep(1)
+            time.sleep(5)
 
             # Handle blockers
             self.handle_blockers(driver)
@@ -520,7 +523,7 @@ class PlayerStatsScraper:
             
 
     # Scapa team stats
-    def scrape_data(season_text, self):
+    def scrape_data(self, season_text):
         # Initialise Selenium webdriver
         driver = webdriver.Chrome() 
 
@@ -561,7 +564,7 @@ class PlayerStatsScraper:
             
                 except Exception as e:
                     # Print error
-                    print("An error occurred get_player_stats:", str(e))
+                    print(f"An error occurred at {index} for {self.player_hrefs[index]}:", str(e))
                 
             # Return player stats data
             return self.player_stats
@@ -602,7 +605,7 @@ class PlayerStatsScraper:
 
                 # Pass
                 pass
-            
+                        
         except Exception as e:
             print("An error occurred:", str(e))
         
