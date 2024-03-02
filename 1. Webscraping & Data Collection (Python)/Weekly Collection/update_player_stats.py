@@ -43,9 +43,20 @@ except Exception as e:
     # Print error
         print(f'Error getting player links', str(e))
 
+# test_links = [
+#       'https://www.premierleague.com/players/19970/Max-Aarons/overview',
+#       'https://www.premierleague.com/players/117754/Zach-Abbott/overview',
+#       'https://www.google.com',
+#       'https://www.premierleague.com/players/42894/Tyler-Adams/overview',
+#       'https://www.premierleague.com/players/126317/Simon-Adingra/overview',
+#       'https://www.premierleague.com/players/54312/Miguel-Almir%C3%B3n/overview',
+#       'https://www.yahoo.com',
+#       'https://www.bing.com'
+# ]
+
 try:
     # Scrape player stats data
-    player_stats = PlayerStatsScraper.scrape_data(player_links, season)
+    player_stats = PlayerStatsScraper.scrape_data(player_links, season, False)
     print("Successfully got player stats")
 except Exception as e:
     # Print error
@@ -57,7 +68,7 @@ try:
 
     if len(missed_links) > 0:
         print(f"There were {len(missed_links)} missed links")
-        player_stats = PlayerStatsScraper.scrape_data(missed_links, season)
+        player_stats = PlayerStatsScraper.scrape_data(missed_links, season, True)
         print(f"Successfully got {len(missed_links)} missed stats")
 except Exception as e:
     # Print error
@@ -67,10 +78,10 @@ except Exception as e:
 player_stats_data = pd.DataFrame(player_stats['player_stats'])
 
 # Find archived file 'premier_league_data.csv' path
-raw_path = os.path.join('../raw_data/csv', 'player_stats_class.csv')
+raw_path = os.path.join('../raw_data/csv', 'player_stats_data.csv')
 Helper.delete_file(raw_path)
 
-export_path = '../raw_data/csv/player_stats_class.csv'
+export_path = '../raw_data/csv/player_stats_data.csv'
 
 # Export data to xlsx
 try:

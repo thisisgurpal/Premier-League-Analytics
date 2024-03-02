@@ -429,7 +429,7 @@ class PlayerStatsScraper:
         season_dropdown_current_div = season_dropdown_div.find_element(By.CSS_SELECTOR, 'div[data-dropdown-current="compSeasons"]')
         season_dropdown_current_div.click()
 
-        time.sleep(2)
+        time.sleep(1)
         
         dropdownListContainer = season_dropdown_div.find_element(By.CSS_SELECTOR, 'div[class="dropdownListContainer"]')
         ul = dropdownListContainer.find_element(By.CSS_SELECTOR, 'ul[data-dropdown-list="compSeasons"]')
@@ -479,7 +479,7 @@ class PlayerStatsScraper:
             a.click()
 
             # Allow page to load
-            time.sleep(5)
+            time.sleep(3)
 
             # Handle blockers
             self.handle_blockers(driver)
@@ -511,7 +511,7 @@ class PlayerStatsScraper:
         self.click_season_for_stats(season_text, driver)
 
         # Allow page to load
-        time.sleep(3)
+        time.sleep(2)
 
         # Get detailed player stats and add to dict
         self.get_player_detailed_stats(driver, dict_)
@@ -527,9 +527,12 @@ class PlayerStatsScraper:
         return self.player_missed_hrefs
 
     # Scapa team stats
-    def scrape_data(self, player_links, season_text):
+    def scrape_data(self, player_links, season_text, isMissedRun):
         # Initialise Selenium webdriver
         driver = webdriver.Chrome() 
+
+        if isMissedRun == True:
+            print(player_links)
 
         # Try open url
         try:
@@ -569,15 +572,17 @@ class PlayerStatsScraper:
 
                         # Print to check progress
                         print('Completed: ', index, ' Total: ', len(player_links))
+
                         break
                 
                     except Exception as e:
                         # Print error
-                        print(f"Attempt {attempt}, An error occurred at {index} for {player_links[index]}:", str(e))
+                        print(f"Attempt {attempt}, An error occurred at {index} for {player_links[index]}")
                         attempt += 1
                         driver.refresh()
                 else:
-                    self.player_missed_hrefs.append(player_href)
+                    if isMissedRun == False:
+                        self.player_missed_hrefs.append(player_href)
                     print("Max attempts reached without success.")
                 
             # Return player stats data
