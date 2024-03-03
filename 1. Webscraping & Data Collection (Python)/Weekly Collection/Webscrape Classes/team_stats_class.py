@@ -13,7 +13,8 @@ class TeamStatsScraper:
     # Initialise data containers
     def __init__(self):
         self.team_stats = { 'team_stats': []}
-        self.page_change = 0
+        self.team_links = []
+        self.team_missed_hrefs = []
 
     # Function to handle add blockers
     def handle_blockers(self, driver):
@@ -34,14 +35,19 @@ class TeamStatsScraper:
             pass
         
     # Locate <a> tags for team
-    def locate_team_links(self, body, position):
-        # Locate a tag for each team's overview page
-        tr = body.find_element(By.CSS_SELECTOR, f'tr[data-position="{position}"]')
-        td = tr.find_element(By.CSS_SELECTOR, 'td[class="league-table__team team"]')
-        a = td.find_element(By.TAG_NAME, 'a')
+    def get_team_links(self, driver):
+        # Locate body
+        body = driver.find_element(By.CSS_SELECTOR, 'tbody[class="league-table__tbody isPL"]')
 
-        # Click and navigate to team overview page
-        self.click_filter(a)
+        for position in range(1,21):
+            # Locate a tag for each team's overview page
+            tr = body.find_element(By.CSS_SELECTOR, f'tr[data-position="{position}"]')
+            td = tr.find_element(By.CSS_SELECTOR, 'td[class="league-table__team team"]')
+            a = td.find_element(By.TAG_NAME, 'a')
+            href = a.get_attribute('href')
+
+            # Append to array
+            self.team_links.append(href)
     
     # Locate the nav element and it's tabs
     def locate_nav_tabs(self, driver):
@@ -87,7 +93,6 @@ class TeamStatsScraper:
     # Click to change page
     def click_filter(self, tag):
         tag.click() 
-        self.page_change += 1
 
     # Get top level stats value
     def get_top_level_stats_value(self, container):
@@ -192,105 +197,161 @@ class TeamStatsScraper:
 
     # Function to get team stats
     def get_team_stats(self, season_text, driver):
-        # Locate body
-        body = driver.find_element(By.CSS_SELECTOR, 'tbody[class="league-table__tbody isPL"]')
+        # Handle add blockers
+        self.handle_blockers(driver)
 
-        # For each position in table
-        for position in range(1,21):
-            # Count page changes
-            self.page_change = 0
+        # Locate navigation bar tabs
+        li = self.locate_nav_tabs(driver)
 
-            # Locate and click tag for team's overview page
-            self.locate_team_links(body, position)
+        # Click 'Stats' tab
+        self.click_stats_tab(li)
 
-            # Allow page to load
-            time.sleep(5)
+        # Allow page to load
+        time.sleep(3)
 
-            # Locate navigation bar tabs
-            li = self.locate_nav_tabs(driver)
+        # Handle add blockers
+        self.handle_blockers(driver)
 
-            # Click 'Stats' tab
-            self.click_stats_tab(li)
+        # Locate and open season filter dropdown
+        dropdown = self.open_seasons_dropdown(driver)
 
-            # Allow page to load
-            time.sleep(5)
+        # Allow dropdown to load
+        time.sleep(1) 
 
-            # Locate and open season filter dropdown
-            dropdown = self.open_seasons_dropdown(driver)
+        # Locate all season items in list
+        seasons_li = self.locate_seasons(dropdown)
 
-            # Allow dropdown to load
-            time.sleep(1) 
+        count = 1  # Create a count in order to decide when to open the dropdown
 
-            # Locate all season items in list
-            seasons_li = self.locate_seasons(dropdown)
+        # Loop through each season filter
+        for season_li in seasons_li:
+            if season_text == 'All':
+                # Do not open the dropdown when count is 1 as it's already open
+                # Open dropdown
+                if count > 1:
+                    # Locate and open season filter dropdown
+                    dropdown = self.open_seasons_dropdown(driver)
 
-            count = 1  # Create a count in order to decide when to open the dropdown
+                    # Allow dropdown to load
+                    time.sleep(1) 
 
-            # Loop through each season filter
-            for season_li in seasons_li:
-                if season_text == 'All':
-                    # Do not open the dropdown when count is 1 as it's already open
-                    # Open dropdown
-                    if count > 1:
-                        # Locate and open season filter dropdown
-                        dropdown = self.open_seasons_dropdown(driver)
+                # Only click filter for individual seasons and not 'All Seasons'
+                if (season_li.get_attribute('data-option-name') != 'All Seasons'):
+                    # Click season and filter table
+                    self.click_filter(season_li)
 
-                        # Allow dropdown to load
-                        time.sleep(1) 
+                    # Allow league table to load
+                    time.sleep(4) 
 
-                    # Only click filter for individual seasons and not 'All Seasons'
-                    if (season_li.get_attribute('data-option-name') != 'All Seasons'):
-                        # Click season and filter table
-                        self.click_filter(season_li)
+                    # Create empty dict
+                    dict_ = {}
 
-                        # Allow league table to load
-                        time.sleep(4) 
+                    # Get stats and information and add to dict
+                    self.get_stats_data(driver, dict_, season_li)
+                    
+                    # Append dict to 'team_stats'
+                    self.team_stats['team_stats'].append(dict_)
 
-                        # Create empty dict
-                        dict_ = {}
+                    count += 1 # Increment count
 
-                        # Get stats and information and add to dict
-                        self.get_stats_data(driver, dict_, season_li)
-                        
-                        # Append dict to 'team_stats'
-                        self.team_stats['team_stats'].append(dict_)
-
-                        count += 1 # Increment count
-
-                    # If season filter is 'All Seasons' keep count as 1
-                    else:
-                        count = count
+                # If season filter is 'All Seasons' keep count as 1
                 else:
-                    # Only click filter for individual seasons and not 'All Seasons'
-                    if (season_li.get_attribute('data-option-name') == season_text):
-                        # Click season and filter table
-                        self.click_filter(season_li)
+                    count = count
+            else:
+                # Only click filter for individual seasons and not 'All Seasons'
+                if (season_li.get_attribute('data-option-name') == season_text):
+                    # Click season and filter table
+                    self.click_filter(season_li)
 
-                        # Allow league table to load
-                        time.sleep(4) 
+                    # Allow league table to load
+                    time.sleep(4) 
 
-                        # Create empty dict
-                        dict_ = {}
+                    # Create empty dict
+                    dict_ = {}
 
-                        # Get stats and information and add to dict
-                        self.get_stats_data(driver, dict_, season_li)
-                        
-                        # Append dict to 'team_stats'
-                        self.team_stats['team_stats'].append(dict_)
+                    # Get stats and information and add to dict
+                    self.get_stats_data(driver, dict_, season_li)
+                    
+                    # Append dict to 'team_stats'
+                    self.team_stats['team_stats'].append(dict_)
 
-                        break
-        
-            # Allow page to load
-            time.sleep(5)
-
-            # Go back to leage table to move onto next team
-            driver.execute_script(f'window.history.go(-{self.page_change})')
-
-            # Allow page to load
-            time.sleep(1)
+                    break
+    
+    # Return missed hrefs
+    def return_missed_hrefs(self):
+        return self.team_missed_hrefs
 
     # Scapa team stats
-    def scrape_data(self, season_text, url):
+    def scrape_data(self, team_links, season_text, isMissedRun):
+        # Initialise Selenium webdriver
+        driver = webdriver.Chrome() 
+
+        if isMissedRun == True:
+            print(team_links)
+        
+        # Try open url
+        try:
+            # Loop through player links
+            for index, team_href in enumerate(team_links):
+                if index == 0:
+                    # self.go_to_player_link(player_href, driver)
+                    driver.get(team_href)
+
+                    time.sleep(6)
+                elif (index % 50) == 0:
+                    # Quit driver
+                    driver.quit()
+        
+                    # Restart initialisation of Selenium webdriver
+                    driver = webdriver.Chrome()
+
+                    # self.go_to_player_link(player_href, driver)
+                    driver.get(team_href)
+
+                    time.sleep(6)
+
+                else:
+                    # self.go_to_player_link(player_href, driver)
+                    driver.get(team_href)
+
+                    time.sleep(3)
+
+                max_attempts = 10
+                attempt = 1
+
+                while attempt <= max_attempts:
+                    # Try get player stats
+                    try:
+                        # Get team stats
+                        self.get_team_stats(season_text, driver)
+
+                        # Print to check progress
+                        print('Completed: ', index, ' Total: ', len(team_links))
+
+                        break
+                
+                    except Exception as e:
+                        # Print error
+                        print(f"Attempt {attempt}, An error occurred at {index} for {team_links[index]}")
+                        attempt += 1
+                        driver.get(team_links)
+                else:
+                    if isMissedRun == False:
+                        self.team_missed_hrefs.append(team_links)
+                    print("Max attempts reached without success.")
+            
+            # Return team stats data
+            return self.team_stats
+            
+        except Exception as e:
+            print("An error occurred:", str(e))
+        
+        finally:
+            # Close the browser window
+            driver.quit()
+
+# Scapa team stats
+    def scrape_links(self, url):
         # Initialise Selenium webdriver
         driver = webdriver.Chrome() 
         
@@ -311,7 +372,7 @@ class TeamStatsScraper:
             # Try get team stats
             try:
                 # Get team stats
-                self.get_team_stats(season_text, driver)
+                self.get_team_links(driver)
             except Exception as e:
                 # Print error
                 print("An error occurred get_team_stats:", str(e))
@@ -320,7 +381,7 @@ class TeamStatsScraper:
                 pass
             
             # Return team stats data
-            return self.team_stats
+            return self.team_links
             
         except Exception as e:
             print("An error occurred:", str(e))

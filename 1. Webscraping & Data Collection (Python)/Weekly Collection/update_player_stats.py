@@ -12,11 +12,11 @@ helper_module = importlib.import_module(helper_module_name)
 
 Helper = helper_module.Helper()
 
-# Find archived file 'premier_league_data.csv' path
+# Delete archived file
 archive_path = os.path.join('../archived_data', 'player_stats_data.csv')
 Helper.delete_file(archive_path)
 
-# Find raw file 'premier_league_data.csv' path
+# Copy raw file to archive
 source_path = os.path.join('../raw_data/csv', 'player_stats_data.csv')
 Helper.copy_from_location1_to_location2(source_path, archive_path)
 
@@ -43,17 +43,6 @@ except Exception as e:
     # Print error
         print(f'Error getting player links', str(e))
 
-# test_links = [
-#       'https://www.premierleague.com/players/19970/Max-Aarons/overview',
-#       'https://www.premierleague.com/players/117754/Zach-Abbott/overview',
-#       'https://www.google.com',
-#       'https://www.premierleague.com/players/42894/Tyler-Adams/overview',
-#       'https://www.premierleague.com/players/126317/Simon-Adingra/overview',
-#       'https://www.premierleague.com/players/54312/Miguel-Almir%C3%B3n/overview',
-#       'https://www.yahoo.com',
-#       'https://www.bing.com'
-# ]
-
 try:
     # Scrape player stats data
     player_stats = PlayerStatsScraper.scrape_data(player_links, season, False)
@@ -77,7 +66,7 @@ except Exception as e:
 # Save data to df
 player_stats_data = pd.DataFrame(player_stats['player_stats'])
 
-# Find archived file 'premier_league_data.csv' path
+# # Delete raw file
 raw_path = os.path.join('../raw_data/csv', 'player_stats_data.csv')
 Helper.delete_file(raw_path)
 

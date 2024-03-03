@@ -579,7 +579,7 @@ class PlayerStatsScraper:
                         # Print error
                         print(f"Attempt {attempt}, An error occurred at {index} for {player_links[index]}")
                         attempt += 1
-                        driver.refresh()
+                        driver.get(player_href)
                 else:
                     if isMissedRun == False:
                         self.player_missed_hrefs.append(player_href)
