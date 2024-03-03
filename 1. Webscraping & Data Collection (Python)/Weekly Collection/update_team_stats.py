@@ -69,7 +69,7 @@ team_stats_new_season = pd.DataFrame(team_stats['team_stats'])
 # Read the CSV file into a DataFrame
 team_stats_old = pd.read_csv('../raw_data/csv/team_stats_data.csv')
 
-team_stats_without_season = team_stats_old[team_stats_old['season'] != season]
+team_stats_without_season = team_stats_old[team_stats_old['Season'] != season]
 
 team_stats_new = pd.concat([team_stats_new_season, team_stats_without_season])
 
