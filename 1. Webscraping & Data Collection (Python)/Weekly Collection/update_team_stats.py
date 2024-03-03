@@ -64,7 +64,14 @@ except Exception as e:
         print(f'Error getting missed team stats', str(e))
 
 # Save data to df
-team_stats_data = pd.DataFrame(team_stats['team_stats'])
+team_stats_new_season = pd.DataFrame(team_stats['team_stats'])
+
+# Read the CSV file into a DataFrame
+team_stats_old = pd.read_csv('../raw_data/csv/premier_league_data.csv')
+
+team_stats_without_season = team_stats_old[team_stats_old['season'] != season]
+
+team_stats_new = pd.concat([team_stats_new_season, team_stats_without_season])
 
 # Delete raw file
 raw_path = os.path.join('../raw_data/csv', 'team_stats_data.csv')
@@ -74,7 +81,7 @@ export_path = '../raw_data/csv/team_stats_data.csv'
 
 # Export data to xlsx
 try:
-    team_stats_data.to_csv(export_path, index=False)
+    team_stats_new.to_csv(export_path, index=False)
     print(f'Succesfully exported team_stats_data to {export_path}')
 except Exception as e:
     # Print error
