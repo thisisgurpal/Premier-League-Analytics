@@ -30,8 +30,7 @@ I wanted to learn webscraping. I thought about certifications. I thought about t
 
 ## Data Collection
 
-Collecting the data. This is where the idea for the project started. To learn about web scraping. I built python classes, containing multiple functions. These classes are for getting, table stats, team stats, and player stats from the Premier League website. Here's an examples of the TableStatsScraper().
-
+Collecting the data. This is where the idea for the project started. To learn about web scraping. I built python classes, containing multiple functions. These classes are for getting, table stats, team stats, and player stats from the Premier League website. To explain what I did, I will choose TableStatsScraper() as an example.
 
 ## Data Cleaning
 ## Data Transformation
