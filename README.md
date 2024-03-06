@@ -1,16 +1,17 @@
 # Premier League Team & Player Dashboards
 
-This project is for football lovers. Football lovers who want to stay updated. Football lovers who want to know the stats. 
+This project is for **football lovers**. Football lovers who want to stay updated. Football lovers who want to know the stats. 
 
-Is Rordi the top passer **per match**? 
+Is Rordi the top **passer per match**? 
 
-Does Virgil Van Dijk have the best tackle success rate? 
+Does Virgil Van Dijk have the best **tackle success** rate? 
 
-What is the shooting accuracy of Erling Haaland? 
+What is the **shooting accuracy** of Erling Haaland? 
 
-Which team gets the most cards? 
+Which team gets the most **cards**? 
 
-Well head over to the live dashboard to get an aswer to all these questions.
+Well head over to the live dashboard to get an answer to all these questions, and more.
+
 
 ![Premier League Dashboard Tableau](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/619ea0ca-aabb-4ff3-bdef-269afd0539c1)
 
