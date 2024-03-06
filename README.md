@@ -10,7 +10,7 @@ What is the **shooting accuracy** of Erling Haaland?
 
 Which team gets the most **cards**? 
 
-Click [here](https://public.tableau.com/app/profile/gurpalgohler/viz/PremierLeagueDashboard_17095666895140/PremierLeagueDashboard) to go to the live dashboard to get an answer to all these questions, and more.
+Click [here](https://public.tableau.com/app/profile/gurpalgohler/viz/PremierLeagueDashboard_17095666895140/PremierLeagueDashboard) to go to the live dashboard and get answers to all these questions, and more.
 
 
 ![Premier League Dashboard Tableau](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/619ea0ca-aabb-4ff3-bdef-269afd0539c1)
@@ -21,3 +21,5 @@ Click [here](https://public.tableau.com/app/profile/gurpalgohler/viz/PremierLeag
 - [Data Cleaning](#datacleaning)
 - [Data Transformation](#datatransformation)
 - [Dashboard building](#dashboardbuilding)
+- [Future Conciderations](#futureconciderations)
+- [Conclusion](#conclusion)
