@@ -29,6 +29,10 @@ Click [here](https://public.tableau.com/app/profile/gurpalgohler/viz/PremierLeag
 I wanted to learn webscraping. I thought about certifications. I thought about text books. But no, I reckon the best way to learn is by doing. I chose a passion which is football, and scraped 2000+ lines of data. Along with multiple attributes, from the Premier League website. Python, selenium and pandas were my weapons of choice. The data I collected was muddy. It needed a bath and make over, SQL was the detergent. Then I had to dress the data to tell the story, this is where tableau came to the rescue. The results is a well designed and interactive dashboard.
 
 ## Data Collection
+
+Collecting the data. This is where the idea for the project started. To learn about web scraping. I built python classes, containing multiple functions. These classes are for getting, table stats, team stats, and player stats from the Premier League website. Here's an examples of the TableStatsScraper().
+
+
 ## Data Cleaning
 ## Data Transformation
 ## Dashboard building
