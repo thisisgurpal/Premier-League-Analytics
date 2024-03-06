@@ -2,7 +2,7 @@
 
 This project is for football lovers. Football lovers who want to stay updated. Football lovers who want to know the stats. 
 
-Is Rordi the best passer? 
+Is Rordi the top passer **per match**? 
 
 Does Virgil Van Dijk have the best tackle success rate? 
 
