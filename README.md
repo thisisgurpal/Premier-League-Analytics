@@ -108,7 +108,7 @@ The append function. It looks like this. Quite simple.
 
 ## 3. Data Cleaning
 
-I could have cleaned the data in python. But where the fun in that. Why not use SQL, and test my skills. Let's looks at the code used to clean the player stats data. After importing the data collected from scraping. It's imported into SQL. Now before running SQL code to clean this data and save it. We have to check if the clean file already exists, so that we can replace it, or create it. That looks like this, where our SELECT statment for cleaning goes within the '' in EXEC('').
+I could have cleaned the data in python. But where the fun in that. Why not use SQL, and test my skills. Let's looks at the [Player Stats 2324 (Data Clean)](https://github.com/thisisgurpal/Premier-League-Analytics/blob/master/2.%20Data%20Cleaning%20(SQL)/Player%20Stats%202324%20(Data%20Clean).sql) file. The file is used to clean the player stats data. After importing the data collected from scraping. It's imported into SQL. Now before running SQL code to clean this data and save it. We have to check if the clean file already exists, so that we can replace it, or create it. That looks like this, where our SELECT statment for cleaning goes within the '' in EXEC('').
 
 ![replace_playerstats_SQL](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/441fd7f7-70dc-4cda-a4b9-add3d03a0971)
 
