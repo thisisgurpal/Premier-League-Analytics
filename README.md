@@ -126,11 +126,11 @@ Top goal scorers query. I merged the first name and last name together. Handling
 
 Height (cm) vs Features query. This query needed a transformation of the data to allow for filtering in Tableau dashboard. Instead of have the data like this:
 
-![HeightFeaturesQueryDataBefore](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/88274e56-9875-4fab-aca8-b9c16cc9dcf8)
+![HeightFeaturesQueryDataBefore](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/881d846e-623b-47be-ad01-e71908d2e362)
 
 I wanted it like this:
 
-![HeightFeaturesQueryDataAfter](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/de83a0fc-17fc-4924-8a59-9c9a9d7cbc1c)
+![HeightFeaturesQueryDataAfter](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/8372b620-e0be-4930-9541-521ff35dede6)
 
 To do that, this is the SQL query I wrote. Taking into account formating. So I found that when the Team is NULL, the player is no longer in the league. As you can see in the query too.
 
