@@ -112,6 +112,10 @@ I could have cleaned the data in python. But where the fun in that. Why not use 
 
 ![replace_playerstats_SQL](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/441fd7f7-70dc-4cda-a4b9-add3d03a0971)
 
+The select statement for the cleaning. In this code we join new columns, replace values, amend values and specify data types. As an example look at Date_of_Birth. The values in the data are either '20/12/1995' or '20/12/1995 (28)' where 28 is the age. I just want the date. This calls for the CAST method. Which allows use to do a WHEN, ELSE statement (like an if, else statement). So within the WHEN, we check for '(' and get the index. If the index is greater than 0, the age is present. So we use THEN to make the change. We take the substring of Date_of_Birth from index 1 to the index before '(' is present. Then CONVERT to the specified data type.
+
+![player_stats_clean_SQL](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/eebc2038-bc23-46c9-b69b-b3f7278a65d6)
+
 ## 4. Data Transformation
 ## 5. Dashboard building
 ## 6. Future Conciderations
