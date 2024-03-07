@@ -137,5 +137,14 @@ To do that, this is the SQL query I wrote. Taking into account formating. So I f
 ![HeightFeaturesQuery](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/8147de05-affc-4d1b-8654-b5383af9985d)
 
 ## 5. Dashboard building
+
+Now I've got my data tranformations. They are exported. Then uploaded to Tableau desktop. The main data table that everything goes through, for filtering purposes is 'Player_and_Team PL 2324.csv'. This table is a distict list of all players in the current Premier League season, with their teams and positons. 
+
+![TableauRelationships](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/2027cd66-cad5-428d-a951-3bd28db49144)
+
+I add the position, team and player columns in this data to filter each chart. These columns are also added to the context of each chart, to enable the data to be fitlered before building the chart.
+
+![ContectTableau](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/4d6543c3-5de6-476d-a20f-993894c5a47c)
+
 ## 6. Future Conciderations
 ## 7. Conclusion
