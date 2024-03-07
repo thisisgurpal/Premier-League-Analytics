@@ -40,7 +40,7 @@ Firstly let's import the modules we need. We need 'webdriver' from selenium, to 
 
 ### Configuring the class
 
-To configure the class, we give a name for it. Mine being 'LeagueTableScraper'. I then decided to store the data within the class, hence creating a dictionary that contains an element with an empty array where the data can get appended. This will allow me to loop through pages, append the data, and then return what we have collected at the end.
+To configure the class, we give a name for it. Mine being 'LeagueTableScraper'. I then decided to store the data within the class, hence creating a dictionary (self.premier_league) that contains an element with an empty array ('premier_league': []) where the data can get appended. This will allow me to loop through pages, append the data, and then return what we have collected at the end.
 
 ![ConfiguringTheClass](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/630f2bb7-0364-40ca-9e96-a428c44cf32c)
 
