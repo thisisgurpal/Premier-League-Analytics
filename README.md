@@ -96,8 +96,15 @@ For season_text being an individual season like '2012/13'. We check if the seaso
 
 ![season_text_individual](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/55efc504-5045-4819-b781-2d967a8a241d)
 
+So your now asking yourself. What's inside of get_premier_league_data(). We'll I'm here to tell you. 
 
+Once we have clicked out season filter, the league table is updated. Ready for us to collect stats. Essentially the function locates the body where the teams are located. Each team is withing an element using there position in the league. As the premier league always has 20 positions, we can loop through each of these numbers. For each position, we get the element of the team in that position, using a function I created, called locate_team_tags(). We can use these elements returned to get our data. Other than the team name, we use the get_team_info() function to retreive our information. Now that we have all the stats, it's time to append to our dictionary. Using append_data(). which take parameters of the data points.
 
+![get_data_pl](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/08429c6a-30d7-4c2f-b1a4-ebc8ad74a9f6)
+
+The append function. It looks like this. Quite simple.
+
+![append](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/7cfcb1b1-f666-4bf7-9ab8-2c8a106a75f8)
 
 
 
