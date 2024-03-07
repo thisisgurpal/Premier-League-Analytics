@@ -117,6 +117,25 @@ The select statement for the cleaning. In this code we join new columns, replace
 ![player_stats_clean_SQL](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/eebc2038-bc23-46c9-b69b-b3f7278a65d6)
 
 ## 4. Data Transformation
+
+Our data is nice and clean now. Ready for some transformations using SQL. You can find the transformation queires [Data Export Queries](https://github.com/thisisgurpal/Premier-League-Analytics/blob/master/4.%20Data%20Export%20from%20SQL/Data%20Export%20Queries.sql). These queries help summarise statistics used in the dashboard. Here's a couple of example queries. 
+
+Top goal scorers query. I merged the first name and last name together. Handling when the player only has a last name.
+
+![GoalsSQL](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/491f79e0-06b2-4385-a767-3a4453aca47d)
+
+Height (cm) vs Features query. This query needed a transformation of the data to allow for filtering in Tableau dashboard. Instead of have the data like this:
+
+![HeightFeaturesQueryDataBefore](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/88274e56-9875-4fab-aca8-b9c16cc9dcf8)
+
+I wanted it like this:
+
+![HeightFeaturesQueryDataAfter](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/de83a0fc-17fc-4924-8a59-9c9a9d7cbc1c)
+
+To do that, this is the SQL query I wrote. Taking into account formating. So I found that when the Team is NULL, the player is no longer in the league. As you can see in the query too.
+
+![HeightFeaturesQuery](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/8147de05-affc-4d1b-8654-b5383af9985d)
+
 ## 5. Dashboard building
 ## 6. Future Conciderations
 ## 7. Conclusion
