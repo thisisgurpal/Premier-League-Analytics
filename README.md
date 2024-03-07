@@ -44,6 +44,14 @@ To configure the class, we give a name for it. Mine being 'LeagueTableScraper'. 
 
 ![ConfiguringTheClass](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/630f2bb7-0364-40ca-9e96-a428c44cf32c)
 
+### Starting the scrape function
+
+![scrape_data](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/7dcb7c14-fe9a-4929-b0a4-7efc716855e1)
+
+### Handling blockers'
+
+When I did the inital webscrapes, I got errors. It wasn't working. The reason was pop ups and ads. To handle this I located the html element and clicked on the closed button, which formed the function handle_blockers.
+
 ## Data Cleaning
 ## Data Transformation
 ## Dashboard building
