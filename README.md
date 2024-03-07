@@ -138,13 +138,18 @@ To do that, this is the SQL query I wrote. Taking into account formating. So I f
 
 ## 5. Dashboard building
 
-Now I've got my data tranformations. They are exported. Then uploaded to Tableau desktop. The main data table that everything goes through, for filtering purposes is 'Player_and_Team PL 2324.csv'. This table is a distict list of all players in the current Premier League season, with their teams and positons. 
+Now I've got my data tranformations. They are exported. Then uploaded to Tableau desktop. The main data table that everything goes through, for filtering purposes is 'Player_and_Team PL 2324.csv'. This table is a distict list of all players in the current Premier League season, with their teams and positons. The 'Team Stats PL 2324.csv' is going through 'Teams PL 2324.csv'. This is because the chart related to 'Team Stats PL 2324.csv' needs to go through a table of distinct teams. And 'Teams PL 2324.csv' is a list of distinct teams.
 
 ![TableauRelationships](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/2027cd66-cad5-428d-a951-3bd28db49144)
 
-I add the position, team and player columns in this data to filter each chart. These columns are also added to the context of each chart, to enable the data to be fitlered before building the chart.
+I add the position, team and player columns from 'Player_and_Team PL 2324.csv' in this data to filter each chart. These columns are also added to the context of each chart, to enable the data to be fitlered before building the chart.
 
 ![ContectTableau](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/4d6543c3-5de6-476d-a20f-993894c5a47c)
 
+After some trial and error. More filtering. More designing. It's finished. The dashboard has been built. Most of the charts can also be used as a filter too, so feel free to click away.
+
+![Premier League Dashboard Tableau](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/bb4358bc-6317-462d-bfe6-025e1e4bd994)
+
 ## 6. Future Conciderations
+
 ## 7. Conclusion
