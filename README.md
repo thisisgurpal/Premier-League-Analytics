@@ -74,6 +74,36 @@ I found only two blockers that occur on the website. So within the handle_blocke
 
 ![HandleBlockers](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/d684ad3f-f157-4ea0-8cf2-f2b0f4d7b4b1)
 
+#### 2.3d Get the data
+
+Now were at the points we want to start getting the data, and storing it for collection. To do this, I've creating a function called get_all_premier_leagues_data(). This function takes the season_text to know which season to get data for, and th driver to have access to locating elements. So inside of the current try block and under the handle_blockers function we put another try block. So that if it errors, the except section can print that error. 
+
+![GetData](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/b3b6a216-4621-4e3c-b831-b0a97eda6949)
+
+There is alot going on in the get_all_premier_leagues_data() function. Here's a simplified explanation. The season_text can be one of two formats. It can be the value season_text = 'All'. This scrapes the premier league table for all seasons going back to 1992. But it can also take individual seasons, like season_text = '2012/13'. This will filter for this specific season and scrape the league table.
+
+Firstly in the get_all_premier_leagues_data() function we need to get the seasons to filter. The open_season_dropdown() is a function I've written to find and open the season dropdown. The find_seasons() function returns a list of the seasons available.
+
+![StartGetPremierLeaguesData](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/606ffebe-f453-4e4c-b60b-d4384c43b7e0)
+
+Now we can loop through these seasons. This is where season_text is used. If the user gives season_text as 'All'. We collect table data for all seasons going back to 1992 to present. If they specify a season like '2012/13'. We only collect table data for that season. The count is used when season_text is 'All'. It allows us to reopen the dropdown after the first one, as initially the dropdown has been opened before the loop.
+
+So for season_text = 'All'. We loop through only the individual season filters, not 'All seasons' as that is an option on the dropdown. After we click, we get the data and append it to our dictionary using get_premier_league_data().
+
+![season_text_all](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/d37c17d1-6fd7-462b-ad2c-488e25c7e324)
+
+For season_text being an individual season like '2012/13'. We check if the season dropdown we are looping through is the same as '2012/13'. When that is true, the filter is clicked. The data is collected and appended using get_premier_league_data(). Finally we break out of the season loop, because we only wanted that one season.
+
+![season_text_individual](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/55efc504-5045-4819-b781-2d967a8a241d)
+
+
+
+
+
+
+
+
+
 
 
 
