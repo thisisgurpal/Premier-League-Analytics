@@ -44,13 +44,38 @@ To configure the class, we give a name for it. Mine being 'LeagueTableScraper'. 
 
 ![ConfiguringTheClass](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/630f2bb7-0364-40ca-9e96-a428c44cf32c)
 
-### 2.3 Building the scrape function
+### 2.3 The scraper function
 
-![scrape_data](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/7dcb7c14-fe9a-4929-b0a4-7efc716855e1)
+I want to call only one function to scrape. To do all the scraping. That is my function called scrape_data(). This will take two parameters. One being the season (season_text) we want to scrape. The second being the initial url to open. 
 
-#### 2.3a Handling blockers'
+![scrape_data](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/66f16693-9c48-480a-b143-37923ac0fcb2)
 
-When I did the inital webscrapes, I got errors. It wasn't working. The reason was pop ups and ads. To handle this I located the html element and clicked on the closed button, which formed the function handle_blockers.
+Let's break this down to get to know this function better.
+
+#### 2.3a Start the chrome session
+
+The first line of the function creates a variable called 'driver'. This variable starts my chrome browser session from the webdriver.
+
+![StartChromeSession](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/3b9e9f8e-e0cb-4db9-b643-dc25b666b9d7)
+
+#### 2.3b Try and get URL
+
+Now we have our chrome driver. We want to try and go to the url passed into the function. To do this we use the get method from the driver. I have placed this inside of a try block. If if fails for any reason, the except part will print the error. Finally we stop the chrome sesson using the quit method.
+
+![TryGetUrl](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/63b05139-263a-4a39-b34b-fd1003160d23)
+
+#### 2.3c Handling blockers
+
+At the moment we are just testing the url. I reviewed and paid close attention. We got pop ups. We got ads. To handle this I located the html elements and clicked on the closed buttons, which formed the function handle_blockers. This function needs to be run after we get the url. However we need the page to load before running too. So we use the time module. Now inside our try block, it looks like this.
+
+![TryWithHandleBlocks](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/aafe07fd-7c4f-46cf-ad53-824fb9cab90a)
+
+I found only two blockers that occur on the website. So within the handle_blockers function I have two try except blocks. For each, when the blocker is present, the try section locates the close button, and clicks it. When it's not present, the except section does a 'pass', it moves on.
+
+![HandleBlockers](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/d684ad3f-f157-4ea0-8cf2-f2b0f4d7b4b1)
+
+
+
 
 ## 3. Data Cleaning
 ## 4. Data Transformation
