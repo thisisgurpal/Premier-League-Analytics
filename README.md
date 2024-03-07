@@ -34,9 +34,15 @@ Collecting the data. This is where the idea for the project started. To learn ab
 
 ### Imports
 
-Firstly let's import the modules we need. We need 'webdriver' from selenium, fto work with the website browser. 'By' from Selenium to locate html elements. The 'By' import uses different ways to locate these elements. the one's I've used are 'CSS_SELECTOR', 'TAG_NAME', 'ID' and 'CLASS_NAME'. Lastly the 'time' module. This is used to allow html elements to load, through delaying running the next piece of code.
+Firstly let's import the modules we need. We need 'webdriver' from selenium, to work with the website browser. 'By' from Selenium to locate html elements. The 'By' import uses different ways to locate these elements. the one's I've used are 'CSS_SELECTOR', 'TAG_NAME', 'ID' and 'CLASS_NAME'. Lastly the 'time' module. This is used to allow html elements to load, through delaying the execution of the next piece of code.
 
 ![Imports](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/cdaba14f-bc8d-43d2-b0ad-df9b215b1153)
+
+### Configuring the class
+
+To configure the class, we give a name for it. Mine being 'LeagueTableScraper'. I then decided to store the data within the class, hence creating a dictionary that contains an element with an empty array where the data can get appended. This will allow me to loop through pages, append the data, and then return what we have collected at the end.
+
+![ConfiguringTheClass](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/630f2bb7-0364-40ca-9e96-a428c44cf32c)
 
 ## Data Cleaning
 ## Data Transformation
