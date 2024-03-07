@@ -16,13 +16,13 @@ Click [here](https://public.tableau.com/app/profile/gurpalgohler/viz/PremierLeag
 ![Premier League Dashboard Tableau](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/619ea0ca-aabb-4ff3-bdef-269afd0539c1)
 
 ## Table of Contents
-- [1. Introduction](#introduction)
-- [2. Data Collection](#data-collection)
-- [3. Data Cleaning](#data-cleaning)
-- [4. Data Transformation](#data-transformation)
-- [5. Dashboard building](#dashboard-building)
-- [6. Future Conciderations](#future-conciderations)
-- [7. Conclusion](#conclusion)
+- [1. Introduction](#1-introduction)
+- [2. Data Collection](#2-data-collection)
+- [3. Data Cleaning](#3-data-cleaning)
+- [4. Data Transformation](#4-data-transformation)
+- [5. Dashboard building](#5-dashboard-building)
+- [6. Future Conciderations](#6-future-conciderations)
+- [7. Conclusion](#7-conclusion)
 
 ## 1. Introduction
 
