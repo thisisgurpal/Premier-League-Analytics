@@ -108,13 +108,13 @@ The append function. It looks like this. Quite simple.
 
 ![append](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/7cfcb1b1-f666-4bf7-9ab8-2c8a106a75f8)
 
-Now we have appended the data. All that is left to do is return self.premier_league at the end of our try block in scrape_data(). 
+Lastly in the scrape_data() function, we return the data.
 
 ![return_data](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/6b54fa30-e6be-4efe-b8b8-066cbfea4669)
 
 All that's left to do now is, initialise our class, and call our function. Allow the function to finish running, and boom. Our data is collected.
 
-![boom](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/b8d56920-fdc2-4975-809b-0a14e9d2420b)
+![boom](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/f62ee74c-d62e-47db-bfbb-0a17780ff420)
 
 ## 3. Data Cleaning
 
