@@ -26,7 +26,7 @@ Click [here](https://public.tableau.com/app/profile/gurpalgohler/viz/PremierLeag
 
 ## 1. Introduction
 
-I wanted to learn web scraping. I thought about certifications. I thought about text books. But no, I think the best way to learn is by doing. I chose a passion which is football, and scraped 2000+ lines of data. Along with multiple attributes, from the Premier League website. Python, selenium and pandas were my weapons of choice the data scraping. The cleaning and transformations were done using SQL. Then it was time to create insights, Tableau came to the rescue. The result is a interactive dashboard, showing the statistics you want to know about your favourite players.
+I wanted to learn web scraping. I thought about certifications. I thought about text books. But no, I think the best way to learn is by doing. I chose a passion which is football. Scraped 2000+ lines of data, along with multiple attributes, from the Premier League website. Python, selenium and pandas were my weapons of choice. The cleaning and transformations were done using SQL. Then it was time to create the visualisations, Tableau came to the rescue. The result is a interactive dashboard, updated weekly, showing the statistics you want to know about your favourite players and teams.
 
 ## 2. Data Collection
 
