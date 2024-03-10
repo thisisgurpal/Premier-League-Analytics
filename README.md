@@ -128,11 +128,7 @@ The select statement for the cleaning. In this code we join new columns, replace
 
 ## 4. Data Transformation
 
-Our data is nice and clean now. Ready for some transformations using SQL. You can find the transformation queries here - [Data Export Queries](https://github.com/thisisgurpal/Premier-League-Analytics/blob/master/4.%20Data%20Export%20from%20SQL/Data%20Export%20Queries.sql). These queries help summarise statistics to be used in the dashboard. Here's a couple of examples. 
-
-Top goal scorers query. I merged the first name and last name together, and selected the goals column. Handling when the player only has a last name. 
-
-![GoalsSQL](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/491f79e0-06b2-4385-a767-3a4453aca47d)
+Our data is nice and clean now. Ready for some transformations using SQL. You can find the transformation queries here - [Data Export Queries](https://github.com/thisisgurpal/Premier-League-Analytics/blob/master/4.%20Data%20Export%20from%20SQL/Data%20Export%20Queries.sql). These queries help summarise statistics to be used in the dashboard. Here is an example. 
 
 Height (cm) vs Features query. This query needed a transformation of the data to allow for filtering in Tableau. Instead of having the data like this:
 
