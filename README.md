@@ -118,23 +118,23 @@ All that's left to do now is, initialise our class, and call our function. Allow
 
 ## 3. Data Cleaning
 
-I could have cleaned the data in python. But where the fun in that. Why not use SQL, and test my skills. Let's looks at the [Player Stats 2324 (Data Clean)](https://github.com/thisisgurpal/Premier-League-Analytics/blob/master/2.%20Data%20Cleaning%20(SQL)/Player%20Stats%202324%20(Data%20Clean).sql) file. The file is used to clean the player stats data. After importing the data collected from scraping. It's imported into SQL. Now before running SQL code to clean this data and save it. We have to check if the clean file already exists, so that we can replace it, or create it. That looks like this, where our SELECT statment for cleaning goes within the '' in EXEC('').
+I could have cleaned the data in python. But where is the fun in that. Why not use SQL, and test my skills. Let's looks at the [Player Stats 2324 (Data Clean)](https://github.com/thisisgurpal/Premier-League-Analytics/blob/master/2.%20Data%20Cleaning%20(SQL)/Player%20Stats%202324%20(Data%20Clean).sql) file. This file is used to clean the player stats data after importing the data collected into SQL server. Now before running SQL code to clean this data and save it. We have to check if the cleaned file already exists, so that we can replace it, or create it. That looks like this, where our SELECT statment for cleaning goes within the '' in EXEC('').
 
 ![replace_playerstats_SQL](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/441fd7f7-70dc-4cda-a4b9-add3d03a0971)
 
-The select statement for the cleaning. In this code we join new columns, replace values, amend values and specify data types. As an example look at Date_of_Birth. The values in the data are either '20/12/1995' or '20/12/1995 (28)' where 28 is the age. I just want the date. This calls for the CAST method. Which allows use to do a WHEN, ELSE statement (like an if, else statement). So within the WHEN, we check for '(' and get the index. If the index is greater than 0, the age is present. So we use THEN to make the change. We take the substring of Date_of_Birth from index 1 to the index before '(' is present. Then CONVERT to the specified data type.
+The select statement for the cleaning. In this code we join new columns, replace values, amend values and specify data types. As an example look at Date_of_Birth. The values in the data are either '20/12/1995' or '20/12/1995 (28)' where 28 is the age. I just want the date. This calls for the CAST method. Which allows us to do a WHEN, THEN and ELSE statement (like an if, else statement). So within the WHEN, we check for '(' and get the index. If the index is greater than 0, the age is present. We use THEN to make the change. Take the substring of Date_of_Birth from index 1 to the index before '(' is present. Then CONVERT to the specified data type.
 
 ![player_stats_clean_SQL](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/eebc2038-bc23-46c9-b69b-b3f7278a65d6)
 
 ## 4. Data Transformation
 
-Our data is nice and clean now. Ready for some transformations using SQL. You can find the transformation queires [Data Export Queries](https://github.com/thisisgurpal/Premier-League-Analytics/blob/master/4.%20Data%20Export%20from%20SQL/Data%20Export%20Queries.sql). These queries help summarise statistics used in the dashboard. Here's a couple of example queries. 
+Our data is nice and clean now. Ready for some transformations using SQL. You can find the transformation queries here - [Data Export Queries](https://github.com/thisisgurpal/Premier-League-Analytics/blob/master/4.%20Data%20Export%20from%20SQL/Data%20Export%20Queries.sql). These queries help summarise statistics to be used in the dashboard. Here's a couple of examples. 
 
-Top goal scorers query. I merged the first name and last name together. Handling when the player only has a last name.
+Top goal scorers query. I merged the first name and last name together, and selected the goals column. Handling when the player only has a last name. 
 
 ![GoalsSQL](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/491f79e0-06b2-4385-a767-3a4453aca47d)
 
-Height (cm) vs Features query. This query needed a transformation of the data to allow for filtering in Tableau dashboard. Instead of have the data like this:
+Height (cm) vs Features query. This query needed a transformation of the data to allow for filtering in Tableau. Instead of having the data like this:
 
 ![HeightFeaturesQueryDataBefore](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/881d846e-623b-47be-ad01-e71908d2e362)
 
@@ -142,17 +142,17 @@ I wanted it like this:
 
 ![HeightFeaturesQueryDataAfter](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/8372b620-e0be-4930-9541-521ff35dede6)
 
-To do that, this is the SQL query I wrote. Taking into account formating. So I found that when the Team is NULL, the player is no longer in the league. As you can see in the query too.
+To do that, this is the SQL query I wrote. As a side note. I found that when the Team is NULL, the player is no longer in the league. As you can see in the query too.
 
 ![HeightFeaturesQuery](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/8147de05-affc-4d1b-8654-b5383af9985d)
 
 ## 5. Dashboard building
 
-Now I've got my data tranformations. They are exported. Then uploaded to Tableau desktop. The main data table that everything goes through, for filtering purposes is 'Player_and_Team PL 2324.csv'. This table is a distict list of all players in the current Premier League season, with their teams and positons. The 'Team Stats PL 2324.csv' is going through 'Teams PL 2324.csv'. This is because the chart related to 'Team Stats PL 2324.csv' needs to go through a table of distinct teams. And 'Teams PL 2324.csv' is a list of distinct teams.
+Now I've got my data tranformations. The tables are exported. Uploaded to Tableau desktop. The main data table that everything goes through, for filtering purposes is 'Player_and_Team PL 2324.csv'. This table is a distict list of all players in the current Premier League season, with their teams and positons. The 'Team Stats PL 2324.csv' is going through 'Teams PL 2324.csv'. This is because the chart related to 'Team Stats PL 2324.csv' needs to go through a table of distinct teams. Which is 'Teams PL 2324.csv'.
 
 ![TableauRelationships](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/2027cd66-cad5-428d-a951-3bd28db49144)
 
-I add the position, team and player columns from 'Player_and_Team PL 2324.csv' in this data to filter each chart. These columns are also added to the context of each chart, to enable the data to be fitlered before building the chart.
+I add the position, team and player columns from 'Player_and_Team PL 2324.csv' in this data to filter each chart. These columns are also added to the context of each chart, to enable the data to be fitlered by these columns before building the charts.
 
 ![ContectTableau](https://github.com/thisisgurpal/Premier-League-Analytics/assets/97416784/4d6543c3-5de6-476d-a20f-993894c5a47c)
 
