@@ -158,4 +158,10 @@ After some trial and error. More filtering. More designing. It's finished. The d
 
 ## 6. Future Conciderations
 
+Going forward, if it was to advance this dashboard. I would scrape not only players in the 2023/2024 season. But in every season in the premier league. This will allow the dashboard to contain players like, Cristiano Ronaldo and Gareth Bale. The comparison between players in different season would then be quite interesting to add and look into. How players have changed over the seasons. 
+
+Another data source I would like to add is the history of injuries for the players. This would allow for some statistical calculations. Predicting the risk of injury for a player.
+
 ## 7. Conclusion
+
+In conclusion, my journey into web scraping was a great learning experience. Instead of traditional methods like certifications or textbooks, I opted for a project. Driven by my passion for football. Using Python, Selenium, and Pandas, I collected over 2000 lines of data from the Premier League website. Cleaning and transforming the data was made easy with SQL. Then, with Tableau, I crafted an interactive dashboard showcasing insights into players and teams statistics. This project improved my technical skills, and enhanced my experience.
