@@ -35,7 +35,7 @@ LeagueTableScraper = module.LeagueTableScraper()
 # Set url
 url = 'https://www.premierleague.com/tables'
 
-# Scrape premier league data for all seasons
+# Scrape premier league data
 premier_league = LeagueTableScraper.scrape_data(season, url)
 
 # Save data to df

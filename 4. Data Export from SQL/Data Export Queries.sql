@@ -370,3 +370,28 @@ FROM [Premier League Scrape].[dbo].[player_stats_clean]
 WHERE [Assists] IS NOT NULL)
 ) a;
 
+/* Losses, wins and draws */
+SELECT
+	[Team Name] AS 'Team',
+	[Won] AS 'Value',
+	'Won' AS 'Measure'
+FROM [Premier League Scrape].[dbo].[premier_league_tables_clean]
+WHERE [Won] IS NOT NULL AND [Season] = '2023/24'
+
+UNION ALL
+
+SELECT
+	[Team Name] AS 'Team',
+	[Lost] AS 'Value',
+	'Lost' AS 'Measure'
+FROM [Premier League Scrape].[dbo].[premier_league_tables_clean]
+WHERE [Lost] IS NOT NULL AND [Season] = '2023/24'
+
+UNION ALL
+
+SELECT
+	[Team Name] AS 'Team',
+	[Drawn] AS 'Value',
+	'Drawn' AS 'Measure'
+FROM [Premier League Scrape].[dbo].[premier_league_tables_clean]
+WHERE [Drawn] IS NOT NULL AND [Season] = '2023/24'

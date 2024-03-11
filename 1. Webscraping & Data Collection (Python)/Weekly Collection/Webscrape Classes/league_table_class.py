@@ -1,16 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
 import time
-import pandas as pd
 
 # Webscraper class to scrape the data
 class LeagueTableScraper:
 
-    # Initialise data containers
+    # Data containers
     def __init__(self):
         self.premier_league = { 'premier_league': []}
 
@@ -19,16 +14,16 @@ class LeagueTableScraper:
         # Try to handle blocker
         try:
             # Locate and close blocker 
-            accept = driver.find_element(By.ID, "onetrust-accept-btn-handler")
-            accept.click()
+            close = driver.find_element(By.ID, "onetrust-accept-btn-handler")
+            close.click()
         except:
             pass
 
         # Try to handle blocker
         try:
             # Locate and close blocker
-            accept = driver.find_element(By.ID, "advertClose")
-            accept.click()
+            close = driver.find_element(By.ID, "advertClose")
+            close.click()
         except:
             pass
     
@@ -220,7 +215,7 @@ class LeagueTableScraper:
 
             # Try to get data
             try:
-                # Get the premier league data for all seasons
+                # Get the premier league data
                 self.get_all_premier_leagues_data(season_text, driver)  
 
             except Exception as e:
@@ -230,7 +225,7 @@ class LeagueTableScraper:
                 # Pass error and move on
                 pass 
             
-            # Return data for premier league data for all seasons
+            # Return data for premier league data
             return self.premier_league 
             
         except Exception as e:
@@ -239,4 +234,4 @@ class LeagueTableScraper:
         
         finally:
             # Close the browser window
-            driver.quit() 
+            driver.quit()
